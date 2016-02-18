@@ -9,7 +9,7 @@ Base64
 
 ## Usage
 
-```
+```swift
 // Encode binary data (Data)
 let data: Data = [104, 101, 108, 108, 111]
 let encoded = Base64.encode(data)
@@ -23,7 +23,7 @@ let decoded = Base64.decode("aGVsbG8=")
 
 ## Installation
 
-```
+```swift
 import PackageDescription
 
 let package = Package(
