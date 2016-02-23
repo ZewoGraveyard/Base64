@@ -29,10 +29,10 @@ public struct Base64 {
         let ascii: [Byte] = [
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
-            64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 62, 64, 64, 64, 63,
+            64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 62, 64, 62, 64, 63,
             52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 64, 64, 64, 64, 64, 64,
             64, 00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14,
-            15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 64, 64, 64, 64, 64,
+            15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 64, 64, 64, 64, 63,
             64, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
             41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 64, 64, 64, 64, 64,
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -87,16 +87,12 @@ public struct Base64 {
         return decoded
     }
 
-    public static func encode(data: Data) throws -> String {
-        let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	public static func encode(data: Data, specialChars: String = "+/", paddingChar: Character? = "=") throws -> String {
+        let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + specialChars
         var encoded: String = ""
 
         func appendCharacterFromBase(character: Int) {
             encoded.append(base64[base64.startIndex.advancedBy(character)])
-        }
-
-        func appendCharacter(character: Character) {
-            encoded.append(character)
         }
 
         func byte(index: Int) -> Int {
@@ -120,13 +116,17 @@ public struct Base64 {
 
             if i == decodedBytes.count - 1 {
                 appendCharacterFromBase(((byte(i) & 0x3) << 4))
-                appendCharacter("=")
+				if let paddingChar = paddingChar {
+					encoded.append(paddingChar)
+				}
             } else {
                 appendCharacterFromBase(((byte(i)     & 0x3) << 4) | ((byte(i + 1) & 0xF0) >> 4))
                 appendCharacterFromBase(((byte(i + 1) & 0xF) << 2))
             }
 
-            appendCharacter("=")
+			if let paddingChar = paddingChar {
+				encoded.append(paddingChar)
+			}
         }
 
         return encoded
