@@ -25,7 +25,7 @@
 @_exported import C7
 
 public struct Base64 {
-    public static func decode(string: String) throws -> Data {
+    public static func decode(_ string: String) throws -> Data {
         let ascii: [Byte] = [
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -57,7 +57,7 @@ public struct Base64 {
             unreadBytes += 1
         }
 
-        func byte(index: Int) -> Int {
+        func byte(_ index: Int) -> Int {
             return Int(Array(string.utf8)[index])
         }
 
@@ -87,15 +87,15 @@ public struct Base64 {
         return decoded
     }
 
-	public static func encode(data: Data, specialChars: String = "+/", paddingChar: Character? = "=") throws -> String {
+	public static func encode(_ data: Data, specialChars: String = "+/", paddingChar: Character? = "=") throws -> String {
         let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + specialChars
         var encoded: String = ""
 
-        func appendCharacterFromBase(character: Int) {
+        func appendCharacterFromBase(_ character: Int) {
             encoded.append(base64[base64.startIndex.advanced(by: character)])
         }
 
-        func byte(index: Int) -> Int {
+        func byte(_ index: Int) -> Int {
             return Int(data[index])
         }
 
@@ -134,7 +134,7 @@ public struct Base64 {
 }
 
 extension Base64 {
-    public static func encode(convertible: DataConvertible) throws -> String {
+    public static func encode(_ convertible: DataConvertible) throws -> String {
         return try encode(convertible.data)
     }
 }
