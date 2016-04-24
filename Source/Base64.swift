@@ -25,7 +25,7 @@
 @_exported import C7
 
 public struct Base64 {
-    public static func decode(_ string: String) throws -> Data {
+    public static func decode(_ string: String) -> Data {
         let ascii: [Byte] = [
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -51,7 +51,7 @@ public struct Base64 {
 
         for character in string.utf8 {
             if ascii[Int(character)] > 63 {
-                throw Base64Error.InvalidCharacter
+                break
             }
 
             unreadBytes += 1
@@ -141,8 +141,4 @@ extension Base64 {
     public static func encode(_ convertible: DataConvertible) -> String {
         return encode(convertible.data)
     }
-}
-
-public enum Base64Error: ErrorProtocol {
-    case InvalidCharacter
 }
