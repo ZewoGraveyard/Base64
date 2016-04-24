@@ -131,6 +131,10 @@ public struct Base64 {
 
         return encoded
     }
+    
+    func urlSafeEncode(_ data: Data) throws -> String {
+        return Base64.encode(data, specialChars: "-_", paddingChar: nil)
+    }
 }
 
 extension Base64 {
