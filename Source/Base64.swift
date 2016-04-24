@@ -51,7 +51,7 @@ public struct Base64 {
 
         for character in string.utf8 {
             if ascii[Int(character)] > 63 {
-                break
+                throw Base64Error.InvalidCharacter
             }
 
             unreadBytes += 1
@@ -87,7 +87,7 @@ public struct Base64 {
         return decoded
     }
 
-	public static func encode(_ data: Data, specialChars: String = "+/", paddingChar: Character? = "=") throws -> String {
+	public static func encode(_ data: Data, specialChars: String = "+/", paddingChar: Character? = "=") -> String {
         let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + specialChars
         var encoded: String = ""
 
@@ -134,7 +134,11 @@ public struct Base64 {
 }
 
 extension Base64 {
-    public static func encode(_ convertible: DataConvertible) throws -> String {
-        return try encode(convertible.data)
+    public static func encode(_ convertible: DataConvertible) -> String {
+        return encode(convertible.data)
     }
+}
+
+public enum Base64Error: ErrorProtocol {
+    case InvalidCharacter
 }
