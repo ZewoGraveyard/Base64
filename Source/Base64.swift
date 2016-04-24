@@ -132,7 +132,7 @@ public struct Base64 {
         return encoded
     }
     
-    public func urlSafeEncode(_ data: Data) -> String {
+    public static func urlSafeEncode(_ data: Data) -> String {
         return Base64.encode(data, specialChars: "-_", paddingChar: nil)
     }
 }
