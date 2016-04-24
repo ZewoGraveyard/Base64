@@ -25,7 +25,7 @@
 @_exported import C7
 
 public struct Base64 {
-    public static func decode(_ string: String) throws -> Data {
+    public static func decode(_ string: String) -> Data {
         let ascii: [Byte] = [
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
             64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -87,7 +87,7 @@ public struct Base64 {
         return decoded
     }
 
-	public static func encode(_ data: Data, specialChars: String = "+/", paddingChar: Character? = "=") throws -> String {
+	public static func encode(_ data: Data, specialChars: String = "+/", paddingChar: Character? = "=") -> String {
         let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + specialChars
         var encoded: String = ""
 
@@ -131,10 +131,14 @@ public struct Base64 {
 
         return encoded
     }
+    
+    public func urlSafeEncode(_ data: Data) -> String {
+        return Base64.encode(data, specialChars: "-_", paddingChar: nil)
+    }
 }
 
 extension Base64 {
-    public static func encode(_ convertible: DataConvertible) throws -> String {
-        return try encode(convertible.data)
+    public static func encode(_ convertible: DataConvertible) -> String {
+        return encode(convertible.data)
     }
 }
