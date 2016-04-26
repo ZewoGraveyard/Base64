@@ -8,7 +8,7 @@ class Base64Tests: XCTestCase {
 }
 
 extension Base64Tests {
-    static var allTests : [(String, Base64Tests -> () throws -> Void)] {
+    static var allTests: [(String, Base64Tests -> () throws -> Void)] {
         return [
            ("testReality", testReality),
         ]
