@@ -6,6 +6,7 @@
 [![License][mit-badge]][mit-url]
 [![Slack][slack-badge]][slack-url]
 [![Travis][travis-badge]][travis-url]
+[![Codebeat][codebeat-badge]][codebeat-url]
 
 **Base64** encoding and decoding.
 
@@ -62,3 +63,5 @@ This project is released under the MIT license. See [LICENSE](LICENSE) for detai
 [slack-url]: http://slack.zewo.io
 [travis-badge]: https://travis-ci.org/Zewo/Base64.svg?branch=master
 [travis-url]: https://travis-ci.org/Zewo/Base64
+[codebeat-badge]: https://codebeat.co/badges/8b169bb1-f7bb-4005-8f1c-d0d4220215ca
+[codebeat-url]: https://codebeat.co/projects/github-com-zewo-base64
