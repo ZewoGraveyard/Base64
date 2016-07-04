@@ -24,10 +24,6 @@
 
 @_exported import C7
 
-enum Base64Error: ErrorProtocol {
-    case invalidInput
-}
-
 let ascii: [Byte] = [
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -50,10 +46,6 @@ let ascii: [Byte] = [
 
 public struct Base64 {
     public static func decode(_ string: String) throws -> Data {
-        if string.utf8.count % 4 != 0    {
-            throw Base64Error.invalidInput
-        }
-
         var decoded = Data()
         var unreadBytes = 0
 
