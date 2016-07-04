@@ -24,10 +24,6 @@
 
 @_exported import C7
 
-enum Base64Error: ErrorProtocol {
-    case invalidInput
-}
-
 let ascii: [Byte] = [
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
