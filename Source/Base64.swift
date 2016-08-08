@@ -24,10 +24,6 @@
 
 @_exported import C7
 
-enum Base64Error: ErrorProtocol {
-    case invalidInput
-}
-
 let ascii: [Byte] = [
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
     64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
@@ -49,11 +45,7 @@ let ascii: [Byte] = [
 ]
 
 public struct Base64 {
-    public static func decode(_ string: String) throws -> Data {
-        if string.utf8.count % 4 != 0    {
-            throw Base64Error.invalidInput
-        }
-
+    public static func decode(_ string: String) -> Data {
         var decoded = Data()
         var unreadBytes = 0
 
@@ -69,7 +61,6 @@ public struct Base64 {
             return Int(Array(string.utf8)[index])
         }
 
-        // let encodedBytes = string.utf8.map { Int($0) }
         var index = 0
 
         while unreadBytes > 4 {
@@ -148,5 +139,9 @@ public struct Base64 {
 extension Base64 {
     public static func encode(_ convertible: DataConvertible) -> String {
         return encode(convertible.data)
+    }
+
+    public static func urlSafeEncode(_ convertible: DataConvertible) -> String {
+        return urlSafeEncode(convertible.data)
     }
 }
